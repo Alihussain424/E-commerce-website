@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StyleHub - AI-Personalized Shopping Experience</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Cart Modal -->
+    <div class="cart-modal" id="cartModal">
+        <div class="cart-modal-content">
+            <div class="cart-modal-header">
+                <h3><i class="fas fa-shopping-cart"></i> Your Shopping Cart</h3>
+                <button class="cart-modal-close" id="cartCloseBtn">&times;</button>
+            </div>
+            <div class="cart-modal-body">
+                <div class="cart-items-list" id="cartItemsList">
+                    <!-- Cart items will be inserted here -->
+                </div>
+                <div class="cart-total-modal">
+                    <span>Total:</span>
+                    <span id="cartTotal">$0.00</span>
+                </div>
+                <button class="btn-checkout">Proceed to Checkout</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Wishlist Modal -->
+    <div class="wishlist-modal" id="wishlistModal">
+        <div class="wishlist-modal-content">
+            <div class="cart-modal-header">
+                <h3><i class="fas fa-heart"></i> Your Wishlist</h3>
+                <button class="cart-modal-close" id="wishlistCloseBtn">&times;</button>
+            </div>
+            <div class="cart-modal-body">
+                <div id="wishlistItems">
+                    <!-- Wishlist items will be inserted here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navigation Modal -->
+    <div class="navigation-modal" id="navigationModal">
+        <div class="navigation-modal-content">
+            <div class="navigation-modal-header">
+                <h3 id="navigationModalTitle">Menu</h3>
+                <button class="navigation-modal-close" id="navigationCloseBtn">&times;</button>
+            </div>
+            <div class="navigation-modal-body" id="navigationModalBody">
+                <!-- Navigation content will be inserted here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- AI Personalization Banner -->
+    <div class="ai-personalization-banner">
+        <div class="container">
+            <div class="ai-banner-content">
+                <div class="ai-indicator">
+                    <i class="fas fa-robot"></i>
+                    <span>AI Personalization: <strong id="currentPersona">Luxury Shopper</strong></span>
+                </div>
+                <div class="persona-switcher">
+                    <span>Switch View:</span>
+                    <div class="persona-buttons">
+                        <button class="persona-btn" data-persona="student">
+                            <i class="fas fa-graduation-cap"></i> Student
+                        </button>
+                        <button class="persona-btn active" data-persona="homeowner">
+                            <i class="fas fa-home"></i> Luxury
+                        </button>
+                        <button class="persona-btn" data-persona="business">
+                            <i class="fas fa-briefcase"></i> Professional
+                        </button>
+                        <button class="persona-btn" data-persona="family">
+                            <i class="fas fa-users"></i> Family
+                        </button>
+                    </div>
+                </div>
+                <div class="ai-status">
+                    <span class="status-dot"></span>
+                    <span>AI Active</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <!-- Logo -->
+                <div class="logo">
+                    <i class="fas fa-crown"></i>
+                    <span class="logo-text">Style<span class="logo-highlight">Hub</span></span>
+                    <span class="logo-tagline">AI-Personalized Shopping</span>
+                </div>
+
+                <!-- Search -->
+                <div class="search-container">
+                    <div class="search-box">
+                        <i class="fas fa-search"></i>
+                        <input type="text" placeholder="AI-powered search... Try 'comfortable work shoes' or 'luxury watches'" id="searchInput">
+                        <button class="search-btn">
+                            <i class="fas fa-robot"></i> AI Search
+                        </button>
+                    </div>
+                    <div class="search-hint">
+                        <i class="fas fa-lightbulb"></i>
+                        <span>AI knows you're looking for <strong id="searchHint">premium fashion items</strong></span>
+                    </div>
+                </div>
+
+                <!-- User Actions -->
+                <div class="user-actions">
+                    <div class="action-item" id="accountBtn">
+                        <i class="fas fa-user-circle"></i>
+                        <span>Account</span>
+                    </div>
+                    <div class="action-item" id="wishlistBtn">
+                        <i class="fas fa-heart"></i>
+                        <span>Wishlist</span>
+                        <span class="badge" id="wishlistCount">3</span>
+                    </div>
+                    <div class="action-item" id="cartBtn">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span>Cart</span>
+                        <span class="badge" id="cartCount">2</span>
+                    </div>
+                    <div class="theme-toggle" id="themeToggle">
+                        <i class="fas fa-moon"></i>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Navigation -->
+            <nav class="main-nav">
+                <ul class="nav-list">
+                    <li class="nav-item active" data-section="home"><a href="#"><i class="fas fa-home"></i> Home</a></li>
+                    <li class="nav-item" data-section="subcategories"><a href="#"><i class="fas fa-list-alt"></i> Shop by Category</a></li>
+                    <li class="nav-item" data-section="ai-features"><a href="#"><i class="fas fa-robot"></i> AI Features</a></li>
+                    <li class="nav-item" data-section="help"><a href="#"><i class="fas fa-question-circle"></i> Help</a></li>
+                    <li class="nav-item" data-section="about"><a href="#"><i class="fas fa-info-circle"></i> About</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            <!-- Home Section (Default) -->
+            <section class="content-section active" id="home-section">
+                <!-- Personalized Welcome -->
+                <div class="welcome-section">
+                    <div class="welcome-card">
+                        <div class="welcome-content">
+                            <h1 id="welcomeTitle">Welcome Back, Luxury Shopper!</h1>
+                            <p id="welcomeMessage">Your AI assistant has curated premium fashion items based on your taste. Discover exclusive brands and limited edition pieces.</p>
+                            <div class="welcome-stats">
+                                <div class="stat">
+                                    <div class="stat-value">12</div>
+                                    <div class="stat-label">New Items For You</div>
+                                </div>
+                                <div class="stat">
+                                    <div class="stat-value">3</div>
+                                    <div class="stat-label">Exclusive Deals</div>
+                                </div>
+                                <div class="stat">
+                                    <div class="stat-value">47%</div>
+                                    <div class="stat-label">Personalization Match</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="welcome-visual">
+                            <div class="ai-personalization">
+                                <div class="ai-visual">
+                                    <i class="fas fa-brain"></i>
+                                    <span>AI Personalization Engine</span>
+                                </div>
+                                <div class="personalization-info">
+                                    <h4>Your Shopping Profile:</h4>
+                                    <ul>
+                                        <li><i class="fas fa-check"></i> Premium brands preference</li>
+                                        <li><i class="fas fa-check"></i> Focus on quality over price</li>
+                                        <li><i class="fas fa-check"></i> Interest in limited editions</li>
+                                        <li><i class="fas fa-check"></i> Fast shipping priority</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- AI Personalized Recommendations -->
+                <section class="recommendations-section">
+                    <div class="section-header">
+                        <h2><i class="fas fa-robot"></i> AI-Personalized Recommendations</h2>
+                        <p class="section-subtitle" id="recommendationSubtitle">Curated exclusively for your luxury lifestyle</p>
+                    </div>
+
+                    <div class="recommendations-controls">
+                        <div class="controls-left">
+                            <button class="filter-btn active">For You</button>
+                            <button class="filter-btn">Trending</button>
+                            <button class="filter-btn">Recently Viewed</button>
+                            <button class="filter-btn">AI Predictions</button>
+                        </div>
+                        <div class="controls-right">
+                            <div class="sort-by">
+                                <span>Sort by:</span>
+                                <select id="sortSelect">
+                                    <option value="relevance">AI Relevance</option>
+                                    <option value="price-high">Price: High to Low</option>
+                                    <option value="price-low">Price: Low to High</option>
+                                    <option value="rating">Customer Rating</option>
+                                    <option value="newest">Newest Arrivals</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="products-grid" id="productsGrid">
+                        <!-- Products will be loaded by JavaScript -->
+                    </div>
+                </section>
+
+                <!-- Personalized Deals -->
+                <section class="deals-section">
+                    <div class="section-header">
+                        <h2><i class="fas fa-bolt"></i> Personalized Deals & Offers</h2>
+                        <p class="section-subtitle" id="dealsSubtitle">Exclusive offers tailored to your shopping profile</p>
+                    </div>
+
+                    <div class="deals-container">
+                        <div class="deal-card premium-deal">
+                            <div class="deal-badge">
+                                <i class="fas fa-crown"></i>
+                                Premium Exclusive
+                            </div>
+                            <div class="deal-content">
+                                <h3>Early Access to Designer Collection</h3>
+                                <p>Get 24-hour early access to new designer arrivals. Limited to premium members.</p>
+                                <div class="deal-cta">
+                                    <button class="btn btn-deal">
+                                        <i class="fas fa-unlock"></i> Unlock Access
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="deal-card" id="personalDeal">
+                            <!-- Deal will be updated by JavaScript -->
+                        </div>
+
+                        <div class="deal-card shipping-deal">
+                            <div class="deal-badge">
+                                <i class="fas fa-shipping-fast"></i>
+                                Free Shipping
+                            </div>
+                            <div class="deal-content">
+                                <h3 id="shippingDealTitle">Free Express Shipping</h3>
+                                <p id="shippingDealText">All orders ship free with 2-day delivery. Upgrade to same-day for $9.99.</p>
+                                <div class="deal-cta">
+                                    <button class="btn btn-deal">
+                                        <i class="fas fa-truck"></i> Learn More
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Category Recommendations -->
+                <section class="categories-section">
+                    <div class="section-header">
+                        <h2><i class="fas fa-th-large"></i> Quick Shop Categories</h2>
+                        <p class="section-subtitle" id="categoriesSubtitle">Browse popular categories curated for you</p>
+                    </div>
+
+                    <div class="categories-grid">
+                        <div class="category-card" onclick="showSubcategoryProducts('dresses')">
+                            <div class="category-icon">
+                                <i class="fas fa-tshirt"></i>
+                            </div>
+                            <h3>Dresses</h3>
+                            <p>Casual, formal & party dresses</p>
+                            <span class="category-badge">Popular</span>
+                        </div>
+
+                        <div class="category-card" onclick="showSubcategoryProducts('smartphones')">
+                            <div class="category-icon">
+                                <i class="fas fa-mobile-alt"></i>
+                            </div>
+                            <h3>Smartphones</h3>
+                            <p>Latest phones & accessories</p>
+                            <span class="category-badge">Trending</span>
+                        </div>
+
+                        <div class="category-card" onclick="showSubcategoryProducts('laptops')">
+                            <div class="category-icon">
+                                <i class="fas fa-laptop"></i>
+                            </div>
+                            <h3>Laptops</h3>
+                            <p>Work, gaming & student laptops</p>
+                            <span class="category-badge">Recommended</span>
+                        </div>
+
+                        <div class="category-card" onclick="showSubcategoryProducts('accessories')">
+                            <div class="category-icon">
+                                <i class="fas fa-gem"></i>
+                            </div>
+                            <h3>Accessories</h3>
+                            <p>Jewelry, bags & fashion items</p>
+                            <span class="category-badge">New Arrivals</span>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- AI Shopping Assistant -->
+                <section class="ai-assistant-section">
+                    <div class="assistant-container">
+                        <div class="assistant-header">
+                            <div class="assistant-avatar">
+                                <i class="fas fa-robot"></i>
+                            </div>
+                            <div class="assistant-info">
+                                <h3>Your AI Shopping Assistant</h3>
+                                <p>Powered by advanced machine learning</p>
+                            </div>
+                            <div class="assistant-status">
+                                <span class="status-indicator active"></span>
+                                <span>Online & Ready to Help</span>
+                            </div>
+                        </div>
+
+                        <div class="assistant-controls">
+                            <div class="control-group">
+                                <label>Personalization Level</label>
+                                <input type="range" min="0" max="100" value="85" class="slider" id="personalizationSlider">
+                                <span id="personalizationValue">85%</span>
+                            </div>
+
+                            <div class="control-group">
+                                <label>Price Sensitivity</label>
+                                <input type="range" min="0" max="100" value="25" class="slider" id="priceSlider">
+                                <span id="priceValue">25%</span>
+                            </div>
+
+                            <div class="control-group">
+                                <label>Trend Awareness</label>
+                                <input type="range" min="0" max="100" value="90" class="slider" id="trendSlider">
+                                <span id="trendValue">90%</span>
+                            </div>
+                        </div>
+
+                        <div class="assistant-chat">
+                            <div class="chat-header">
+                                <h4>AI Assistant Chat</h4>
+                                <button class="btn btn-small" id="resetChatBtn">
+                                    <i class="fas fa-sync-alt"></i> Reset Chat
+                                </button>
+                            </div>
+                            <div class="chat-messages" id="chatMessages">
+                                <!-- Chat messages will be loaded by JavaScript -->
+                            </div>
+                            <div class="chat-input">
+                                <input type="text" placeholder="Ask your AI assistant anything..." id="chatInput">
+                                <button class="btn btn-chat" id="sendChatBtn">
+                                    <i class="fas fa-paper-plane"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Shopping Cart Preview -->
+                <section class="cart-section">
+                    <div class="cart-container">
+                        <div class="cart-header">
+                            <h3><i class="fas fa-shopping-cart"></i> Your Cart</h3>
+                            <div class="cart-summary">
+                                <span id="cartItemCount">2 items</span>
+                                <span class="cart-total" id="cartTotalPreview">$1,299.98</span>
+                            </div>
+                        </div>
+                        <div class="cart-items" id="cartItems">
+                            <!-- Cart items will be loaded by JavaScript -->
+                        </div>
+                        <div class="cart-recommendations">
+                            <h4>AI Recommends Adding:</h4>
+                            <div class="cart-recommendation-items" id="cartRecommendations">
+                                <!-- Recommendations will be loaded by JavaScript -->
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </section>
+
+            <!-- Subcategories Section -->
+            <section class="content-section" id="subcategories-section">
+                <div class="section-header">
+                    <h2><i class="fas fa-list-alt"></i> Browse by Category</h2>
+                    <p class="section-subtitle">Click any category to view related products</p>
+                </div>
+                <div class="subcategories-container" id="subcategoriesContainer">
+                    <!-- Subcategories will be loaded by JavaScript -->
+                </div>
+            </section>
+
+            <!-- AI Features Section -->
+            <section class="content-section" id="ai-features-section">
+                <div class="section-header">
+                    <h2><i class="fas fa-robot"></i> AI Features</h2>
+                    <p class="section-subtitle">Experience the power of AI in shopping</p>
+                </div>
+                <div class="ai-features-grid" id="aiFeatures">
+                    <!-- AI Features will be loaded by JavaScript -->
+                </div>
+            </section>
+
+            <!-- Help Section -->
+            <section class="content-section" id="help-section">
+                <div class="section-header">
+                    <h2><i class="fas fa-question-circle"></i> Help Center</h2>
+                    <p class="section-subtitle">Get assistance with your shopping experience</p>
+                </div>
+                <div class="help-categories" id="helpCategories">
+                    <!-- Help categories will be loaded by JavaScript -->
+                </div>
+            </section>
+
+            <!-- About Section -->
+            <section class="content-section" id="about-section">
+                <div class="section-header">
+                    <h2><i class="fas fa-info-circle"></i> About StyleHub</h2>
+                    <p class="section-subtitle">Learn more about our story and technology</p>
+                </div>
+                <div class="about-content" id="aboutContent">
+                    <!-- About content will be loaded by JavaScript -->
+                </div>
+            </section>
+
+            <!-- Subcategory Products Section -->
+            <section class="content-section" id="subcategory-section">
+                <div class="section-header">
+                    <h2 id="subcategoryTitle"><i class="fas fa-tag"></i> <span id="subcategoryName">Category Products</span></h2>
+                    <p class="section-subtitle" id="subcategorySubtitle">Browse products in this category</p>
+                </div>
+                <div class="subcategory-products" id="subcategoryProducts">
+                    <!-- Subcategory products will be loaded by JavaScript -->
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <div class="logo">
+                        <i class="fas fa-crown"></i>
+                        <span class="logo-text">Style<span class="logo-highlight">Hub</span></span>
+                    </div>
+                    <p class="footer-tagline">
+                        Experience shopping powered by AI personalization. Every visit is uniquely tailored to you.
+                    </p>
+                    <div class="footer-social">
+                        <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-facebook"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-pinterest"></i></a>
+                    </div>
+                </div>
+
+                <div class="footer-links">
+                    <div class="footer-column">
+                        <h4>Quick Links</h4>
+                        <ul>
+                            <li><a href="#" data-section="subcategories" data-subcategory="womens-fashion">Women's Fashion</a></li>
+                            <li><a href="#" data-section="subcategories" data-subcategory="mens-fashion">Men's Fashion</a></li>
+                            <li><a href="#" data-section="subcategories" data-subcategory="electronics">Electronics</a></li>
+                            <li><a href="#" data-section="subcategories" data-subcategory="home-kitchen">Home & Kitchen</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h4>AI Features</h4>
+                        <ul>
+                            <li><a href="#" data-section="ai-features">Personalized Recommendations</a></li>
+                            <li><a href="#" data-section="ai-features">AI Style Assistant</a></li>
+                            <li><a href="#" data-section="ai-features">Smart Price Tracking</a></li>
+                            <li><a href="#" data-section="ai-features">Virtual Try-On</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h4>Help</h4>
+                        <ul>
+                            <li><a href="#" data-section="help">Customer Service</a></li>
+                            <li><a href="#" data-section="help">AI Help Center</a></li>
+                            <li><a href="#" data-section="help">Returns & Exchanges</a></li>
+                            <li><a href="#" data-section="help">Shipping Info</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h4>About</h4>
+                        <ul>
+                            <li><a href="#" data-section="about">Our Story</a></li>
+                            <li><a href="#" data-section="about">AI Technology</a></li>
+                            <li><a href="#" data-section="about">Careers</a></li>
+                            <li><a href="#" data-section="about">Sustainability</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2024 StyleHub. All rights reserved. This demo showcases AI-powered personalization in e-commerce.</p>
+                <div class="footer-disclaimer">
+                    <i class="fas fa-robot"></i>
+                    <span>This website demonstrates AI personalization. No actual purchases can be made.</span>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
